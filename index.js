@@ -33,16 +33,17 @@ async function readBody(req, config) {
     req.on('error', reject)
     req.on('end', () => {
       if (bytes && chunks) {
-        const buffer = Buffer.concat(chunks)
-
         req.bytes = bytes
         req.maxBytes = maxBytes
 
+        const buffer = Buffer.concat(chunks)
         if (config.json) {
           jsonParser(buffer).then(resolve, reject)
         } else {
           resolve(buffer)
         }
+      } else {
+        resolve(null)
       }
     })
   })
