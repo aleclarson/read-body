@@ -9,6 +9,9 @@ async function readBody(req, config) {
   } else if (!config) {
     config = {}
   }
+  if (!config.json) {
+    req.json = jsonCacher
+  }
   return req.body = new Promise((resolve, reject) => {
     const maxBytes = config.maxBytes || 1e6
 
@@ -38,7 +41,6 @@ async function readBody(req, config) {
         if (config.json) {
           jsonParser(buffer).then(resolve, reject)
         } else {
-          req.json = getJSON
           resolve(buffer)
         }
       }
@@ -48,16 +50,15 @@ async function readBody(req, config) {
 
 module.exports = readBody
 
-async function getJSON(resolve, reject) {
+// Parse the body as JSON, with caching.
+async function jsonCacher(resolve) {
   const buffer = await this.body
-  const promise = jsonParser(buffer)
-  if (arguments.length) {
-    return promise.then(resolve, reject)
-  } else {
-    return promise
-  }
+  const json = buffer ? await jsonParser(buffer) : {}
+  this.json = async () => json
+  return resolve ? resolve(json) : json
 }
 
+// Parse the body as JSON, without caching.
 async function jsonParser(buffer) {
   const json = buffer.toString()
   try {
