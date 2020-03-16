@@ -1,6 +1,7 @@
 {
   "name": "read-body",
   "version": "0.0.1",
+  "repository": "aleclarson/read-body",
   "devDependencies": {
     "@types/node": "^13.9.1",
     "typescript": "^3.8.3"
