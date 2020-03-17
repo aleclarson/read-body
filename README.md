@@ -4,7 +4,7 @@
 Buffer a readable stream into memory.
 
 ```js
-const readBody = require('read-body')
+import {readBody} from 'read-body'
 
 // Read the stream into a buffer (limit of 1mb).
 let buffer = await readBody(stream)
@@ -35,3 +35,14 @@ the stream once the promise is resolved.
 
 For convenience, the `bytes` and `maxBytes` properties
 are added to the stream once the promise is resolved.
+
+### readJson(input, ?config)
+
+Shortcut for `readBody(stream, {json: true})`.
+
+```js
+import {readJson} from 'read-body'
+
+// Read the stream into a JSON value (limit of 1mb).
+const json = await readJson(stream)
+```
