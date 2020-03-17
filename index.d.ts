@@ -3,7 +3,15 @@ export interface ReadBodyOptions {
   json?: boolean,
 }
 
-declare const readBody: {
+export const readJson: {
+  /** Read the given stream and convert with `JSON.parse` */
+  <T extends { [key:string]: any }>(
+    input: ReadableStream,
+    opts?: Omit<ReadBodyOptions, 'json'>
+  ): Promise<T>
+}
+
+export const readBody: {
   /** Read the given stream and convert with `JSON.parse` */
   <T extends { [key: string]: any }>(
     input: ReadableStream,
@@ -16,5 +24,3 @@ declare const readBody: {
   /** Read the given stream into a buffer */
   (input: ReadableStream, opts?: ReadBodyOptions): Promise<Buffer | string>
 }
-
-export default readBody

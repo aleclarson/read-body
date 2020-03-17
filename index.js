@@ -1,5 +1,9 @@
 // TODO: Destroy streams that upload below a certain bits per second.
 
+function readJson(req, config) {
+  return readBody(req, {...config, json: true})
+}
+
 async function readBody(req, config) {
   if (req.body) {
     return req.body
@@ -49,7 +53,7 @@ async function readBody(req, config) {
   })
 }
 
-module.exports = readBody
+module.exports = {readJson, readBody}
 
 // Parse the body as JSON, with caching.
 async function jsonCacher(resolve) {
