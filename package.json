@@ -1,6 +1,6 @@
 {
   "name": "read-body",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": "aleclarson/read-body",
   "devDependencies": {
     "@types/node": "^13.9.1",
