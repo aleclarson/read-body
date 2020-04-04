@@ -1,13 +1,13 @@
 import { Readable } from 'stream'
 
 export interface ReadBodyOptions {
-  maxBytes?: number,
-  json?: boolean,
+  maxBytes?: number
+  json?: boolean
 }
 
 export const readJson: {
   /** Read the given stream and convert with `JSON.parse` */
-  <T extends { [key:string]: any }>(
+  <T extends { [key: string]: any }>(
     input: Readable,
     opts?: Omit<ReadBodyOptions, 'json'>
   ): Promise<T>
