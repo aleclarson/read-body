@@ -24,5 +24,11 @@ export const readBody: {
   (input: Readable, maxBytes?: number): Promise<Buffer>
 
   /** Read the given stream into a buffer */
-  (input: Readable, opts?: ReadBodyOptions): Promise<Buffer | string>
+  (input: Readable, opts?: Omit<ReadBodyOptions, 'json'>): Promise<Buffer>
+
+  /** Read the given stream */
+  <T extends { [key: string]: any }>(
+    input: Readable,
+    opts?: ReadBodyOptions
+  ): Promise<Buffer | T>
 }
